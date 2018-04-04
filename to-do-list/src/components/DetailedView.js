@@ -5,6 +5,7 @@ export default class DetailedView extends Component {
         return (
             <div>
                 <h1>Detailed View</h1>
+                {this.props.match.params.id}
             </div>
         );
     }
