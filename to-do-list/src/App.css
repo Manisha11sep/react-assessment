@@ -109,5 +109,10 @@
 .list-item-container .disabled {
   text-decoration: line-through;
   color: grey;
-  
+
+}
+
+.list-item-container a {
+  text-decoration: none;
+  color: black;
 }
