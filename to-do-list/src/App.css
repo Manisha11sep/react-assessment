@@ -1,0 +1,113 @@
+*{
+  box-sizing: border-box;
+}
+.App {
+  text-align: center;
+  color: black;
+  padding: 20px;
+  height: 100vh
+}
+
+.to-do-container {
+  width: 350px;
+  height: 200px;
+  box-shadow: 1px 4px 10px rgba(0,0,0,0.35);
+  margin: 0 auto 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px;
+}
+
+.to-do-container > div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.to-do-container > div > *+* {
+  margin: 10px 0px;
+}
+
+.to-do-container input {
+  border: none;
+  border-bottom: solid 1px black;
+  width: 100%; 
+  font-size: 16px;
+}
+
+.to-do-container input:focus {
+  outline: none;
+}
+
+.to-do-container button {
+  width: 120px;
+  height: 30px;
+  border-radius: 3px;
+  background: #61B9F3;
+  color: white;
+  font-weight: bolder;
+}
+
+.list-container {
+  width: 350px;
+  height: 500px;
+  box-shadow: 1px 4px 10px rgba(0,0,0,0.35);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  background: #f4f4f4;
+}
+
+.list-container > *+* {
+  margin: 5px 0px;
+}
+
+.list-container > div:first-child {
+  margin-bottom: 5px;
+}
+
+.list-item-container {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 3px 5px;
+  align-items: center;
+  width: 100%;
+  background: white;
+  box-shadow: .5px 1px 5px rgba(0,0,0,0.50);
+  border-radius: 2px;
+}
+
+.list-item-container > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-item-container > div > span {
+  margin: 0 5px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.list-item-container > div > button {
+  background: #e1e1e1;
+  border-radius: 2px;
+  border: none;
+  width: 65px;
+  height: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.list-item-container .disabled {
+  text-decoration: line-through;
+  color: grey;
+  
+}
