@@ -116,3 +116,142 @@
   text-decoration: none;
   color: black;
 }
+
+/* detailed view styling */
+
+.detailed-view-container > div{
+  width: 350px;
+  box-shadow: 1px 4px 10px rgba(0,0,0,0.35);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100px 15px 15px;
+  height: 100vh;
+}
+
+.detailed-view-container > div> div:first-child {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  
+}
+
+.detailed-view-container > div> div:first-child a {
+  color: black;
+  text-decoration: none;
+  font-weight: bolder;
+  font-size: 14px;
+}
+
+.detailed-view-container .task-name {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.detailed-view-container .task-name > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.detailed-view-container .task-name > div span {
+  color:rgb(143, 202, 241);
+  font-size: 12px;
+
+}
+
+.detailed-view-container .task-name > div input{
+  border: none;
+  border-bottom: solid 2px rgb(143, 202, 241);
+  width: 100%; 
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.detailed-view-container .task-name > div input:focus {
+  outline: none;
+}
+
+.detailed-view-container .task-name button {
+  background: #e1e1e1;
+  border-radius: 2px;
+  border: none;
+  width: 65px;
+  height: 35px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.detailed-view-container .description {
+  width: 100%;
+  margin-top: 25px;
+}
+
+.detailed-view-container .description > div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.detailed-view-container .description > div span {
+  color:black;
+  font-size: 12px;
+
+}
+
+.detailed-view-container .description > div input{
+  border: none;
+  border-bottom: solid 2px black;
+  width: 100%; 
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+.detailed-view-container .description > div input:focus {
+  outline: none;
+}
+
+.detailed-view-container .details-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 15px;
+}
+.detailed-view-container .details-buttons > *+* {
+  margin: 0 10px;
+}
+
+.detailed-view-container .details-buttons button:nth-child(1) {
+  
+}
+
+.detailed-view-container .details-buttons button:nth-child(2) {
+  color: black;
+  background: #E4E4E4;
+  margin-left: 20px;
+}
+
+.detailed-view-container .details-buttons a:nth-child(3) button{
+  margin-left: 0px;
+  background: #D77976;
+}
+
+.detailed-view-container .details-buttons button {
+  width: 60px;
+  height: 30px;
+  border-radius: 3px;
+  background: #61B9F3;
+  color: white;
+  font-weight: bolder;
+  border: none;
+  cursor: pointer;
+}

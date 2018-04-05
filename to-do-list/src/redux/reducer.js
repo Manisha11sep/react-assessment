@@ -1,15 +1,15 @@
 var initialState = {
-    user: ''
+    tasks: ''
 }
 
-const FETCH_USER_DATA = 'FETCH_USER_DATA'
+const FETCH_TASK = 'FETCH_TASK'
 
 
 export default function(state=initialState, action){
     switch(action.type){
-        case FETCH_USER_DATA:
+        case FETCH_TASK:
     
-            return {...state, user: action.payload};
+            return {...state, tasks: action.payload};
             
         default:
 
@@ -18,10 +18,10 @@ export default function(state=initialState, action){
 }
 
 //function to populate user account with user data
-export function fetchUserData(user){
+export function fetchTasks(tasks){
     return {
-        type: FETCH_USER_DATA,
-        payload: user
+        type: FETCH_TASK,
+        payload: tasks
     }
 }
 

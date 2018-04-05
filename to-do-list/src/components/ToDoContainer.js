@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import ToDo from './To-Do'
 import List from './List'
 import axios from 'axios';
+import { connect } from 'react-redux';
+import { fetchTasks } from '../redux/reducer';
 import '../App.css';
 
-class App extends Component {
+class ToDoContainer extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -15,8 +17,8 @@ class App extends Component {
   componentDidMount(){
     axios.get('https://practiceapi.devmountain.com/api/tasks').then(taskArray => {
         console.log(taskArray.data)
+        this.props.fetchTasks(taskArray.data)
         this.setState({
-            tasks: taskArray.data,
             title:''
         })
     })
@@ -32,8 +34,8 @@ class App extends Component {
     console.log(this.state.title)
     if(this.state.title){
       axios.post('https://practiceapi.devmountain.com/api/tasks', {title: this.state.title}).then(newTaskArray => {
+        this.props.fetchTasks(newTaskArray.data)
         this.setState({
-          tasks: newTaskArray.data,
           title: ''
         })
         console.log(this.state.title)
@@ -43,17 +45,13 @@ class App extends Component {
 
   completeTask = (id) => {
     axios.put(`https://practiceapi.devmountain.com/api/tasks/${id}`).then(newTaskArray => {
-      this.setState({
-        tasks: newTaskArray.data
-      })
+      this.props.fetchTasks(newTaskArray.data)
     })
   }
 
   deleteTask = (id) => {
     axios.delete(`https://practiceapi.devmountain.com/api/tasks/${id}`).then(newTaskArray => {
-      this.setState({
-        tasks: newTaskArray.data
-      })
+      this.props.fetchTasks(newTaskArray.data)
     })
   }
 
@@ -61,10 +59,22 @@ class App extends Component {
   return (
       <div className="App">
         <ToDo newTitle={this.taskTitleChangeHandler} titleValue={this.state.title} submitNewTask={this.addNewTask}/>
-        <List tasks={this.state.tasks} deleteTask={this.deleteTask} complete={this.completeTask}/>
+        <List tasks={this.props.tasks} deleteTask={this.deleteTask} complete={this.completeTask}/>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+      tasks: state.tasks
+  }
+}
+
+const mapDispatchToProps = {
+ 
+  fetchTasks: fetchTasks
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToDoContainer)
