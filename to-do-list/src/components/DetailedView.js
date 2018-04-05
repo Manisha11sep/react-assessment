@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { getTasks, completeTask, deleteTask, updateTask } from '../redux/reducer';
+import { getTasks, completeTask, deleteTask, updateTask, getSingleTasks } from '../redux/reducer';
 import '../App.css';
 
 class DetailedView extends Component {
@@ -16,14 +16,21 @@ class DetailedView extends Component {
 
     componentDidMount(){
 
-        this.props.getTasks();
-
-        const currentTask = this.props.tasks.filter((e) => e.id == this.props.match.params.id);
-
-        this.setState({
-            title: currentTask[0].title,
-            description: currentTask[0].description
+        this.props.getSingleTasks(this.props.match.params.id).then(response => {
+            const currentTask = response.value[0]
+            this.setState({
+                title: currentTask.title,
+                description: currentTask.description
+            })
         })
+        
+
+        // console.log(this.props.tasks)
+        // const currentTask = this.props.tasks ? this.props.tasks.filter((e) => e.id == this.props.match.params.id) : 'loading'
+        
+        // if(this.props.tasks[0]){
+        
+        // }
     }
 
     taskTitleChangeHandler = (title) => {
@@ -48,7 +55,7 @@ class DetailedView extends Component {
       }
 
     render() {
-        
+
         const currentTask = this.props.tasks.filter((e) => e.id == this.props.match.params.id);
         
         return (
@@ -92,7 +99,8 @@ const mapDispatchToProps = {
     getTasks: getTasks,
     completeTask: completeTask,
     deleteTask: deleteTask,
-    updateTask: updateTask
+    updateTask: updateTask,
+    getSingleTasks: getSingleTasks
 
 }
 

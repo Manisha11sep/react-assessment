@@ -31,11 +31,11 @@ class ToDoContainer extends Component {
   }
 
   render(){
-    console.log(this.props.data)
+    console.log(this.props.tasks)
   return (
       <div className="App">
         <ToDo newTitle={this.taskTitleChangeHandler} titleValue={this.state.title} clearTitle={this.clearTitle} submitNewTask={this.props.addTask}/>
-        <List tasks={this.props.data} deleteTask={this.props.deleteTask} complete={this.props.completeTask}/>
+        <List tasks={this.props.tasks} deleteTask={this.props.deleteTask} complete={this.props.completeTask}/>
       </div>
     );
   }
@@ -43,7 +43,7 @@ class ToDoContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      data: state
+      tasks: state
   }
 }
 
