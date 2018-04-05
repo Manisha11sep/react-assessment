@@ -2,39 +2,54 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { fetchTasks } from '../redux/reducer';
+import { getTasks, completeTask, deleteTask, updateTask } from '../redux/reducer';
 import '../App.css';
 
 class DetailedView extends Component {
     constructor(props){
         super(props)
         this.state = {
-
+            title:'',
+            description:''
         }
     }
+
     componentDidMount(){
-        axios.get('https://practiceapi.devmountain.com/api/tasks').then(taskArray => {
-            this.props.fetchTasks(taskArray.data)
+
+        this.props.getTasks();
+
+        const currentTask = this.props.tasks.filter((e) => e.id == this.props.match.params.id);
+
+        this.setState({
+            title: currentTask[0].title,
+            description: currentTask[0].description
         })
     }
 
+    taskTitleChangeHandler = (title) => {
+        this.setState({
+          title: title
+        })
+      }
     
-    completeTask = () => {
-        axios.put(`https://practiceapi.devmountain.com/api/tasks/${this.props.match.params.id}`).then(newTaskArray => {
-          this.props.fetchTasks(newTaskArray.data)
+      taskDescriptionChangeHandler = (description) => {
+        this.setState({
+            description: description
         })
-    }
+      }
 
-    deleteTask = () => {
-        axios.delete(`https://practiceapi.devmountain.com/api/tasks/${this.props.match.params.id}`).then(newTaskArray => {
-          this.props.fetchTasks(newTaskArray.data)
+      cancel = () => {
+        const currentTask = this.props.tasks.filter((e) => e.id == this.props.match.params.id);
+
+        this.setState({
+            title: currentTask[0].title,
+            description: currentTask[0].description
         })
-    }
+      }
 
     render() {
         
         const currentTask = this.props.tasks.filter((e) => e.id == this.props.match.params.id);
-        console.log(currentTask[0].title)
         
         return (
             <div className='detailed-view-container'>
@@ -45,20 +60,20 @@ class DetailedView extends Component {
                     <div className='task-name'>
                         <div>
                             <span>Task</span>
-                            <input value={currentTask[0].title}/>
+                            <input onChange={(e) => this.taskTitleChangeHandler(e.target.value)} value={this.state.title}/>
                         </div>
-                        <Link to='/'><button onClick={()=> this.completeTask()}>Complete</button></Link>
+                        <Link to='/'><button onClick={()=> this.props.completeTask(currentTask[0].id)}>Complete</button></Link>
                     </div>
                     <div className='description'>
                         <div>
                             <span>Description</span>
-                            <input  value={currentTask[0].description}/>
+                            <input onChange={(e) => this.taskDescriptionChangeHandler(e.target.value)}  value={this.state.description}/>
                         </div>
                     </div>
                     <div className='details-buttons'>
-                        <button>Save</button>
-                        <button>Cancel</button>
-                        <Link to='/'><button onClick={()=> this.deleteTask()}>Delete</button></Link>
+                        <Link to='/'><button onClick={()=>this.props.updateTask(currentTask[0].id, this.state.title, this.state.description)}>Save</button></Link>
+                        <button onClick={() => this.cancel()}>Cancel</button>
+                        <Link to='/'><button onClick={()=> this.props.deleteTask(currentTask[0].id)}>Delete</button></Link>
                     </div>
                 </div>
             </div>
@@ -74,7 +89,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
    
-    fetchTasks: fetchTasks
+    getTasks: getTasks,
+    completeTask: completeTask,
+    deleteTask: deleteTask,
+    updateTask: updateTask
 
 }
 

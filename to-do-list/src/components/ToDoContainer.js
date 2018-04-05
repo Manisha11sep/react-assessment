@@ -3,7 +3,7 @@ import ToDo from './To-Do'
 import List from './List'
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { fetchTasks } from '../redux/reducer';
+import { getTasks, addTask, completeTask, deleteTask } from '../redux/reducer';
 import '../App.css';
 
 class ToDoContainer extends Component {
@@ -15,13 +15,7 @@ class ToDoContainer extends Component {
     }
   }
   componentDidMount(){
-    axios.get('https://practiceapi.devmountain.com/api/tasks').then(taskArray => {
-        console.log(taskArray.data)
-        this.props.fetchTasks(taskArray.data)
-        this.setState({
-            title:''
-        })
-    })
+    this.props.getTasks();
   }
 
   taskTitleChangeHandler = (title) => {
@@ -30,36 +24,18 @@ class ToDoContainer extends Component {
     })
   }
 
-  addNewTask = (taskTitle) => {
-    console.log(this.state.title)
-    if(this.state.title){
-      axios.post('https://practiceapi.devmountain.com/api/tasks', {title: this.state.title}).then(newTaskArray => {
-        this.props.fetchTasks(newTaskArray.data)
-        this.setState({
-          title: ''
-        })
-        console.log(this.state.title)
-      })
-    }
-  }
-
-  completeTask = (id) => {
-    axios.put(`https://practiceapi.devmountain.com/api/tasks/${id}`).then(newTaskArray => {
-      this.props.fetchTasks(newTaskArray.data)
-    })
-  }
-
-  deleteTask = (id) => {
-    axios.delete(`https://practiceapi.devmountain.com/api/tasks/${id}`).then(newTaskArray => {
-      this.props.fetchTasks(newTaskArray.data)
+  clearTitle = () => {
+    this.setState({
+      title: ''
     })
   }
 
   render(){
+    console.log(this.props.data)
   return (
       <div className="App">
-        <ToDo newTitle={this.taskTitleChangeHandler} titleValue={this.state.title} submitNewTask={this.addNewTask}/>
-        <List tasks={this.props.tasks} deleteTask={this.deleteTask} complete={this.completeTask}/>
+        <ToDo newTitle={this.taskTitleChangeHandler} titleValue={this.state.title} clearTitle={this.clearTitle} submitNewTask={this.props.addTask}/>
+        <List tasks={this.props.data} deleteTask={this.props.deleteTask} complete={this.props.completeTask}/>
       </div>
     );
   }
@@ -67,13 +43,16 @@ class ToDoContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      tasks: state.tasks
+      data: state
   }
 }
 
 const mapDispatchToProps = {
  
-  fetchTasks: fetchTasks
+  getTasks: getTasks,
+  addTask: addTask,
+  completeTask: completeTask,
+  deleteTask: deleteTask
 
 }
 

@@ -13,7 +13,10 @@ export default class ToDo extends Component {
                 <h1>TO-DO:</h1>
                 <div>
                     <input onChange={(e) => this.props.newTitle(e.target.value)} value={this.props.titleValue} />
-                    <button onClick={() => this.props.submitNewTask()}>Add new To-do</button>
+                    <button onClick={() => {
+                        this.props.submitNewTask(this.props.titleValue);
+                        this.props.clearTitle();
+                        }}>Add new To-do</button>
                 </div>
             </div>
         );

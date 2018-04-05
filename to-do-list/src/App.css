@@ -234,7 +234,7 @@
   
 }
 
-.detailed-view-container .details-buttons button:nth-child(2) {
+.detailed-view-container .details-buttons button:nth-child(2){
   color: black;
   background: #E4E4E4;
   margin-left: 20px;
